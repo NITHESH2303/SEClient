@@ -14,6 +14,7 @@ import {
   Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import Chat from './Chat';
 
 ChartJS.register(
@@ -115,20 +116,29 @@ export default function Performance() {
             className="w-24 h-24 rounded-full mb-4"
           />
           <h2 className="text-xl font-bold">21f3001255</h2>
-          <button className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
+          <Link 
+            to="/profile" 
+            className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+          >
             View Profile
-          </button>
+          </Link>
         </div>
 
         <nav className="space-y-2">
-          <a href="/dashboard" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700">
+          <Link 
+            to="/dashboard" 
+            className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+          >
             <Icon icon={home} size={20} />
             <span className="font-medium">Home</span>
-          </a>
-          <a href="#" className="flex items-center space-x-3 p-3 rounded-lg bg-purple-50 text-purple-600">
+          </Link>
+          <Link 
+            to="/performance" 
+            className="flex items-center space-x-3 p-3 rounded-lg bg-purple-50 text-purple-600"
+          >
             <Icon icon={activity} size={20} />
             <span className="font-medium">Performance</span>
-          </a>
+          </Link>
         </nav>
       </div>
 

@@ -78,9 +78,12 @@ export default function Dashboard() {
             className="w-24 h-24 rounded-full mb-4"
           />
           <h2 className="text-xl font-bold">21f3001255</h2>
-          <button className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
+          <Link 
+            to="/profile" 
+            className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+          >
             View Profile
-          </button>
+          </Link>
         </div>
 
         <nav className="space-y-2">

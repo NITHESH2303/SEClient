@@ -6,6 +6,7 @@ import { messageCircle } from 'react-icons-kit/feather/messageCircle';
 import { x } from 'react-icons-kit/feather/x';
 import { chevronDown } from 'react-icons-kit/feather/chevronDown';
 import { chevronUp } from 'react-icons-kit/feather/chevronUp';
+import { pieChart } from 'react-icons-kit/feather/pieChart';
 import { Link, useParams } from 'react-router-dom';
 import Chat from './Chat';
 
@@ -130,9 +131,12 @@ export default function CourseVideos() {
             className="w-24 h-24 rounded-full mb-4"
           />
           <h2 className="text-xl font-bold">21f3001255</h2>
-          <button className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
+          <Link 
+            to="/profile" 
+            className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+          >
             View Profile
-          </button>
+          </Link>
         </div>
 
         <nav className="space-y-2">
@@ -161,6 +165,13 @@ export default function CourseVideos() {
             <p className="text-gray-600 mt-2">{course.description}</p>
           </div>
           <div className="flex items-center space-x-4">
+            <Link
+              to={`/course/${courseId}/analytics`}
+              className="flex items-center space-x-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors animate-scale-in"
+            >
+              <Icon icon={pieChart} size={20} />
+              <span>Analytics</span>
+            </Link>
             <span className="text-lg font-medium text-gray-600">21f3001255</span>
             <button 
               className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -213,7 +224,10 @@ export default function CourseVideos() {
                     ))}
                     
                     {week.assignment && (
-                      <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                      <Link
+                        to={`/course/${courseId}/assignment/${week.id}`}
+                        className="mt-4 p-4 bg-gray-50 rounded-lg block hover:bg-gray-100 transition-colors"
+                      >
                         <div className="flex justify-between items-center mb-2">
                           <h4 className="font-medium text-gray-800">{week.assignment.title}</h4>
                           <span className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -225,7 +239,7 @@ export default function CourseVideos() {
                           </span>
                         </div>
                         <p className="text-sm text-gray-600">Due: {week.assignment.dueDate}</p>
-                      </div>
+                      </Link>
                     )}
                   </div>
                 )}
