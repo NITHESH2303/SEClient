@@ -4,6 +4,7 @@ import { home } from 'react-icons-kit/feather/home';
 import { activity } from 'react-icons-kit/feather/activity';
 import { messageCircle } from 'react-icons-kit/feather/messageCircle';
 import { x } from 'react-icons-kit/feather/x';
+import { Link } from 'react-router-dom';
 import Chat from './Chat';
 
 interface Course {
@@ -11,6 +12,7 @@ interface Course {
   title: string;
   category: string;
   icon: string;
+  description: string;
 }
 
 interface Deadline {
@@ -29,19 +31,22 @@ export default function Dashboard() {
       id: 1,
       title: "Business Data Management",
       category: "Data Science",
-      icon: "📊"
+      icon: "📊",
+      description: "Learn to manage and analyze business data effectively"
     },
     {
       id: 2,
       title: "Business Analytics",
       category: "Data Science",
-      icon: "📈"
+      icon: "📈",
+      description: "Master the fundamentals of business analytics"
     },
     {
       id: 3,
       title: "Modern Application Development - I",
       category: "Programming",
-      icon: "💻"
+      icon: "💻",
+      description: "Build modern web applications using React"
     }
   ];
 
@@ -79,14 +84,20 @@ export default function Dashboard() {
         </div>
 
         <nav className="space-y-2">
-          <a href="#" className="flex items-center space-x-3 p-3 rounded-lg bg-purple-50 text-purple-600">
+          <Link 
+            to="/dashboard" 
+            className="flex items-center space-x-3 p-3 rounded-lg bg-purple-50 text-purple-600"
+          >
             <Icon icon={home} size={20} />
             <span className="font-medium">Home</span>
-          </a>
-          <a href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700">
+          </Link>
+          <Link 
+            to="/performance" 
+            className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+          >
             <Icon icon={activity} size={20} />
             <span className="font-medium">Performance</span>
-          </a>
+          </Link>
         </nav>
       </div>
 
@@ -96,29 +107,40 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-800">Student Dashboard</h1>
           <div className="flex items-center space-x-4">
             <span className="text-lg font-medium text-gray-600">21f3001255</span>
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <Icon icon={messageCircle} size={24} onClick={() => setIsChatOpen(true)} />
+            <button 
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              onClick={() => setIsChatOpen(true)}
+            >
+              <Icon icon={messageCircle} size={24} />
             </button>
           </div>
         </header>
 
         {/* Courses Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Courses</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">My Courses</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
-              <div key={course.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <Link 
+                to={`/course/${course.id}`}
+                key={course.id} 
+                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              >
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 text-sm font-medium text-blue-600 bg-blue-100 rounded-full mb-4">
                     {course.category}
                   </span>
                   <div className="text-4xl mb-4">{course.icon}</div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">{course.title}</h3>
-                  <button className="text-purple-600 hover:text-purple-700 font-medium">
-                    View More
-                  </button>
+                  <p className="text-gray-600 mb-4">{course.description}</p>
+                  <span className="text-purple-600 hover:text-purple-700 font-medium inline-flex items-center">
+                    View Course
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -175,12 +197,12 @@ export default function Dashboard() {
 
       {/* Chat Overlay */}
       {isChatOpen && (
-        <div className="fixed bottom-4 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="fixed bottom-4 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-slide-in-right">
           <div className="flex justify-between items-center p-4 border-b">
             <h3 className="text-lg font-semibold">Chat Assistant</h3>
             <button
               onClick={() => setIsChatOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
               <Icon icon={x} size={20} />
             </button>

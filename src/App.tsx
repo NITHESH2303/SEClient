@@ -4,6 +4,7 @@ import Signup from './components/pages/Signup'
 import Chat from './components/pages/Chat'
 import Dashboard from './components/pages/Dashboard'
 import Performance from './components/pages/Performance'
+import CourseVideos from './components/pages/CourseVideos'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/chat" Component={Chat} />
           <Route path="/dashboard" Component={Dashboard} />
           <Route path="/performance" Component={Performance} />
+          <Route path="/course/:courseId" Component={CourseVideos} />
         </Routes>
       </BrowserRouter>
     </>
