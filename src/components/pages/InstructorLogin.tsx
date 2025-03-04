@@ -1,12 +1,12 @@
-import loginImg from '../../assets/login.jpeg';
+import loginImg from '../../assets/instructor_login.jpg'; // Change image to instructor-specific
 import LoginComponent from '../Auth/LoginComponent';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function InstructorLogin() {
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
-    navigate('/dashboard'); // Redirect to dashboard after successful login
+    navigate('/instructor/dashboard'); // Redirect to instructor dashboard after successful login
   };
 
   return (
@@ -21,7 +21,7 @@ export default function Login() {
               <img 
                 className='relative rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105'
                 src={loginImg} 
-                alt="Login" 
+                alt="Instructor Login" // Update alt text for accessibility
               />
             </div>
           </div>

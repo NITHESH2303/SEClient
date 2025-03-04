@@ -1,13 +1,20 @@
-import signupImg from '../../assets/signup.jpg'
-import SignupComponent from '../SignupComponent';
+import signupImg from '../../assets/signup.jpg';
+import SignupComponent from '../Auth/SignupComponent';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+  const navigate = useNavigate();
+
+  const handleSignupSuccess = () => {
+    navigate('/login'); // Redirect to login after successful signup
+  };
+
   return (
     <div className='min-h-screen w-full bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900'>
       <div className='container mx-auto px-4 h-screen'>
         <div className='grid grid-cols-1 lg:grid-cols-2 h-full gap-8'>
           <div className='flex items-center justify-center p-8'>
-            <SignupComponent />
+            <SignupComponent onSignupSuccess={handleSignupSuccess} />
           </div>
 
           <div className='hidden lg:flex items-center justify-center p-8'>
@@ -25,5 +32,5 @@ export default function Signup() {
         </div>
       </div>
     </div>
-  )
+  );
 }

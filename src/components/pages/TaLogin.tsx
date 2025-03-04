@@ -1,12 +1,12 @@
-import loginImg from '../../assets/login.jpeg';
-import LoginComponent from '../Auth/LoginComponent';
+import loginImg from '../../assets/ta_login.jpg'; // Change image to TA-specific
+import LoginComponent from '../Auth/LoginComponent'; // Reuse existing LoginComponent
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function TALogin() {
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
-    navigate('/dashboard'); // Redirect to dashboard after successful login
+    navigate('/ta-dashboard'); // Redirect to TA dashboard after successful login
   };
 
   return (
@@ -21,7 +21,7 @@ export default function Login() {
               <img 
                 className='relative rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105'
                 src={loginImg} 
-                alt="Login" 
+                alt="TA Login" // Update alt text for accessibility
               />
             </div>
           </div>
