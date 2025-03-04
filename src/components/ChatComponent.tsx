@@ -31,6 +31,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
   const [pendingUserMessage, setPendingUserMessage] = useState<Message | null>(null);
   const rawCompletionRef = useRef('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const {
     completion: rawCompletion,
@@ -158,45 +159,47 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
     <div className={`flex flex-col h-full ${className}`}>
       {title && <h2 className="text-xl font-bold mb-4">{title}</h2>}
       
-      <div className="flex-1 overflow-auto p-4">
-        {history.map((message, index) => (
-          <div key={index} className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] p-4 rounded-2xl ${
-              message.role === 'user' 
-                ? 'bg-purple-600 text-white ml-auto' 
-                : 'bg-white/10 text-white'
-            }`}>
-              <div className="whitespace-pre-wrap">{message.content}</div>
-              <div className={`text-xs mt-1 ${message.role === 'user' ? 'text-purple-200' : 'text-gray-400'}`}>
-                {formatTime(message.timestamp)}
+      <div className="flex-1 overflow-auto p-4" ref={messagesContainerRef}>
+        <div className="flex flex-col space-y-4">
+          {history.map((message, index) => (
+            <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[80%] p-4 rounded-2xl ${
+                message.role === 'user' 
+                  ? 'bg-purple-600 text-white ml-auto' 
+                  : 'bg-white/10 text-white'
+              }`}>
+                <div className="whitespace-pre-wrap">{message.content}</div>
+                <div className={`text-xs mt-1 ${message.role === 'user' ? 'text-purple-200' : 'text-gray-400'}`}>
+                  {formatTime(message.timestamp)}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-        
-        {isLoading && (
-          <div className="mb-4 flex justify-start">
-            <div className="max-w-[80%] p-4 rounded-2xl bg-white/10 text-white">
-              <div className="whitespace-pre-wrap">
-                {cleanedCompletion || (
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                  </div>
-                )}
+          ))}
+          
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="max-w-[80%] p-4 rounded-2xl bg-white/10 text-white">
+                <div className="whitespace-pre-wrap">
+                  {cleanedCompletion || (
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        
-        {error && (
-          <div className="p-3 text-red-500 border border-red-300 rounded-lg my-2">
-            Error: {error.message}
-          </div>
-        )}
-        
-        <div ref={messagesEndRef} />
+          )}
+          
+          {error && (
+            <div className="p-3 text-red-500 border border-red-300 rounded-lg my-2">
+              Error: {error.message}
+            </div>
+          )}
+          
+          <div ref={messagesEndRef} />
+        </div>
       </div>
       
       <div className="p-4 border-t border-white/20">
