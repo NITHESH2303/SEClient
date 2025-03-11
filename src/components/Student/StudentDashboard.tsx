@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Icon } from 'react-icons-kit';
-import { home } from 'react-icons-kit/feather/home';
-import { activity } from 'react-icons-kit/feather/activity';
 import { messageCircle } from 'react-icons-kit/feather/messageCircle';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchCourses, fetchDeadlines } from '../../services/students';
-import Sidebar from '../ui/Sidebar';
+import { fetchCourses, fetchDeadlines, fetchStudentData } from '../../services/students';
 import DeadlineItem from '../ui/DeadlineItem';
 import ChatOverlay from '../ui/ChatOverlay';
+import Sidebar from './Sidebar';
 
 interface Course {
   id: number;
@@ -25,91 +23,36 @@ interface Deadline {
   status: 'Pending' | 'Submitted';
 }
 
-export default function Dashboard() {
+interface StudentData {
+  id: string;
+  first_name: string | " ";
+  last_name: string | " "
+}
+
+export default function StudentDashboard() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
-  const [deadlines, setDeadlines] = useState<Deadline[]>([
-    {
-      id: 1,
-      course_title: 'Business Data Management',
-      assignment_no: 1,
-      deadline: '2025-02-26',
-      status: 'Submitted'
-    },
-    {
-      id: 2,
-      course_title: 'Business Data Management',
-      assignment_no: 2,
-      deadline: '2025-03-05',
-      status: 'Pending'
-    },
-    {
-      id: 3,
-      course_title: 'Business Data Management',
-      assignment_no: 3,
-      deadline: '2025-03-12',
-      status: 'Submitted'
-    },
-    {
-      id: 4,
-      course_title: 'Business Analytics',
-      assignment_no: 1,
-      deadline: '2025-02-26',
-      status: 'Submitted'
-    },
-    {
-      id: 5,
-      course_title: 'Business Analytics',
-      assignment_no: 2,
-      deadline: '2025-03-05',
-      status: 'Pending'
-    },
-    {
-      id: 6,
-      course_title: 'Business Analytics',
-      assignment_no: 3,
-      deadline: '2025-03-12',
-      status: 'Submitted'
-    },
-    {
-      id: 7,
-      course_title: 'Modern Application Development - I',
-      assignment_no: 1,
-      deadline: '2025-02-26',
-      status: 'Submitted'
-    },
-    {
-      id: 8,
-      course_title: 'Modern Application Development - I',
-      assignment_no: 2,
-      deadline: '2025-03-05',
-      status: 'Pending'
-    },
-    {
-      id: 9,
-      course_title: 'Modern Application Development - I',
-      assignment_no: 3,
-      deadline: '2025-03-12',
-      status: 'Submitted'
-    }]);
-
+  const [deadlines, setDeadlines] = useState<Deadline[]>([])
+  const [studentData, setStudentData] = useState<StudentData>()
   const navigate = useNavigate();
 
   useEffect(() => {
     // Check if the user is logged in
-    // const accessToken = localStorage.getItem('access_token');
-    // if (!accessToken) {
-    //   navigate('/login'); // Redirect to login if not logged in
-    //   return;
-    // }
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      navigate('/login'); // Redirect to login if not logged in
+      return;
+    }
 
     // Fetch courses and deadlines from the backend
     const fetchData = async () => {
       try {
         const coursesData = await fetchCourses();
         const deadlinesData = await fetchDeadlines();
+        const studentData = await fetchStudentData()
         setCourses(coursesData);
         setDeadlines(deadlinesData);
+        setStudentData(studentData)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -118,17 +61,10 @@ export default function Dashboard() {
     fetchData();
   }, [navigate]);
 
-  const sidebarItems = [
-    { icon: home, title: 'Home', href: '/dashboard' },
-    { icon: activity, title: 'Performance', href: '/performance' },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Sidebar
-        profileImage="/iitm_avatar.png"
-        profileTitle="21f3001255"
-        items={sidebarItems}
       />
 
       {/* Main Content */}
@@ -136,7 +72,7 @@ export default function Dashboard() {
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Student Dashboard</h1>
           <div className="flex items-center space-x-4">
-            <span className="text-lg font-medium text-gray-600">21f3001255</span>
+            <span className="text-lg font-medium text-gray-600">{studentData?.first_name} {studentData?.last_name}</span>
             <button 
               className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               onClick={() => setIsChatOpen(true)}
@@ -152,7 +88,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
               <Link 
-                to={`/course/${course.id}`}
+                to={`/student/course/${course.id}`}
                 key={course.id} 
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >

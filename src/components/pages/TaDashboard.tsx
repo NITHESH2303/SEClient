@@ -65,14 +65,14 @@ export default function TADashboard() {
 
         <nav className="space-y-2">
           <Link 
-            to="/ta-dashboard" 
+            to="/ta/dashboard" 
             className="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 text-blue-600"
           >
             <Icon icon={home} size={20} />
             <span className="font-medium">Home</span>
           </Link>
           <Link 
-            to="/assignments" 
+            to="ta/assignments" 
             className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
           >
             <Icon icon={clipboard} size={20} />
@@ -114,7 +114,7 @@ export default function TADashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
               <Link 
-                to={`/ta/manage-course/${course.id}`}
+                to={`/admin/manage-course/${course.id}`}
                 key={course.id} 
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >

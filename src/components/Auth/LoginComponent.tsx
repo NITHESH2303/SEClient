@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../../services/auth';
+import { loginActual } from '../../services/auth';
 
 interface LoginComponentProps {
   onLoginSuccess: () => void;
@@ -15,11 +15,11 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
     setError('');
 
     try {
-      const response = await login(username, password);
+      const response = await loginActual(username, password);
       
       // Save the token in local storage
       localStorage.setItem('access_token', response.access_token);
-      
+
       // Call the onLoginSuccess callback to redirect to the dashboard
       onLoginSuccess();
     } catch (err) {
@@ -61,7 +61,11 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
         <button
           type='submit'
           className='w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition duration-300'
-        >
+          onClick={(e) => {
+            console.log('button clicked')
+            handleSubmit(e)
+          }}
+          >
           Login
         </button>
       </form>
