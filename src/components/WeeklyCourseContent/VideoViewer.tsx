@@ -1,4 +1,3 @@
-// VideoViewer.tsx
 import { Video } from './WeeklyCourseContent';
 import { Clock, X, Edit, Save } from 'lucide-react';
 import { useState } from 'react';
@@ -79,7 +78,8 @@ export default function VideoViewer({ video, onClose, isAdmin, onUpdate }: Video
         </div>
       </div>
       
-      <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg mb-6 overflow-hidden shadow-md">
+      {/* Increased video size with a larger aspect ratio container */}
+      <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg mb-6 overflow-hidden shadow-md min-h-[480px]">
         {video.video_link ? (
           <iframe
             width="100%"
@@ -112,6 +112,7 @@ export default function VideoViewer({ video, onClose, isAdmin, onUpdate }: Video
         )}
       </div>
       
+      {/* Added max height and scrolling for transcript */}
       <div className="bg-gray-50 p-4 rounded-lg">
         <h3 className="text-lg font-medium text-gray-800 mb-2">Transcript</h3>
         {isEditing ? (
@@ -121,7 +122,9 @@ export default function VideoViewer({ video, onClose, isAdmin, onUpdate }: Video
             className="w-full h-40 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
           />
         ) : (
-          <p className="text-gray-700 leading-relaxed">{video.transcript || 'No transcript available'}</p>
+          <div className="max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+            <p className="text-gray-700 leading-relaxed">{video.transcript || 'No transcript available'}</p>
+          </div>
         )}
       </div>
 
