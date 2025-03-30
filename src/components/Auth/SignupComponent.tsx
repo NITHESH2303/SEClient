@@ -62,12 +62,19 @@ const SignupComponent: React.FC<SignupComponentProps> = ({ onSignupSuccess, avai
   };
 
   return (
-    <div className="relative bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Signup</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit}>
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <div className="flex justify-center mb-8">
+        <img 
+          src="https://th.bing.com/th/id/OSK.fc0b485845f18bc6c70439044750149e?w=80&h=80&r=0&o=6&cb=B&pid=23.1"
+          alt="Signup"
+          className="w-20 h-20 rounded-full"
+        />
+      </div>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Signup</h2>
+      {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-6">
         {['firstName', 'lastName', 'username', 'email', 'password'].map((field) => (
-          <div key={field} className="mb-4">
+          <div key={field}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field}>
               {field.charAt(0).toUpperCase() + field.slice(1)}
             </label>
@@ -82,7 +89,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({ onSignupSuccess, avai
             />
           </div>
         ))}
-        <div className="mb-6">
+        <div>
           <button
             type="button"
             onClick={() => setShowCourseDialog(true)}

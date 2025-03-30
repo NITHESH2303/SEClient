@@ -29,10 +29,17 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
 
   return (
     <div className='bg-white p-8 rounded-lg shadow-lg w-full max-w-md'>
-      <h2 className='text-2xl font-bold mb-6 text-gray-800'>Login</h2>
-      {error && <p className='text-red-500 mb-4'>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className='mb-4'>
+      <div className="flex justify-center mb-8">
+        <img 
+          src="https://th.bing.com/th/id/OSK.fc0b485845f18bc6c70439044750149e?w=80&h=80&r=0&o=6&cb=B&pid=23.1"
+          alt="Login"
+          className="w-20 h-20 rounded-full"
+        />
+      </div>
+      <h2 className='text-2xl font-bold mb-6 text-gray-800 text-center'>Login</h2>
+      {error && <p className='text-red-500 mb-4 text-center'>{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
           <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='username'>
             Username
           </label>
@@ -45,7 +52,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
             required
           />
         </div>
-        <div className='mb-6'>
+        <div>
           <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
             Password
           </label>
@@ -61,11 +68,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
         <button
           type='submit'
           className='w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition duration-300'
-          onClick={(e) => {
-            console.log('button clicked')
-            handleSubmit(e)
-          }}
-          >
+        >
           Login
         </button>
       </form>
