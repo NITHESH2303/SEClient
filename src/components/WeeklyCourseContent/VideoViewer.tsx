@@ -78,21 +78,19 @@ export default function VideoViewer({ video, onClose, isAdmin, onUpdate }: Video
         </div>
       </div>
       
-      {/* Increased video size with a larger aspect ratio container */}
-      <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg mb-6 overflow-hidden shadow-md min-h-[480px]">
+      {/* Updated video container with proper aspect ratio and sizing */}
+      <div className="relative w-full pt-[56.25%] bg-gray-900 rounded-lg mb-6 overflow-hidden shadow-md">
         {video.video_link ? (
           <iframe
-            width="100%"
-            height="100%"
             src={getEmbedUrl(isEditing ? editedVideo.video_link : video.video_link)}
             title={video.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-full"
+            className="absolute top-0 left-0 w-full h-full"
           ></iframe>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-gray-400">
             No video available
           </div>
         )}
@@ -112,7 +110,6 @@ export default function VideoViewer({ video, onClose, isAdmin, onUpdate }: Video
         )}
       </div>
       
-      {/* Added max height and scrolling for transcript */}
       <div className="bg-gray-50 p-4 rounded-lg">
         <h3 className="text-lg font-medium text-gray-800 mb-2">Transcript</h3>
         {isEditing ? (
