@@ -47,6 +47,7 @@ function App() {
           <Route path="/admin/customize-ai" Component={CustomizeAI} />
           <Route path="/admin/add-content" Component={AddContent} />
           <Route path="/admin/login" Component={InstructorLogin} />
+          {/* <Route path="/admin/students" Component={StudentStats} */}
 
           {/* Common Routes */}
           <Route path="/chat" Component={Chat} />
